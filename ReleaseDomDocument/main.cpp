@@ -23,9 +23,8 @@ struct measure
     {
         auto start = std::chrono::steady_clock::now();
         std::forward<decltype(func)>(func)(std::forward<Args>(args)...);
-auto duration = std::chrono::duration_cast<TimeT>
-(std::chrono::steady_clock::now() - start);
-return duration.count();
+        auto duration = std::chrono::duration_cast<TimeT>(std::chrono::steady_clock::now() - start);
+        return duration.count();
     }
 };
 
@@ -76,7 +75,7 @@ DOMDocument* ParseFile(const std::string& file)
 }
 
 void TestWithDocumentFragment();
-void TestWithOnly1Document();
+void TestWithDocument();
 
 int main(int argc, char** argv)
 {
@@ -91,7 +90,7 @@ int main(int argc, char** argv)
     {
         XQillaPlatformUtils::initialize();
         TestWithDocumentFragment();
-        TestWithOnly1Document();
+        TestWithDocument();
     }
     catch (const std::exception& e)
     {
@@ -138,21 +137,21 @@ void TestWithDocumentFragment()
             parsedDoc = ParseFile(fileToParse);
             ImportOtherDocElementIntoDocFragment(parsedDoc, docFrag);
             parsedDoc->release();
-            }) << std::endl;
+        }) << "ms" << std::endl;
 
         std::cout << "Free DocumentFragment time: " << measure<>::execution([&docFrag]() {
             docFrag->release();
-            }) << std::endl;
+        }) << "ms" << std::endl;
     }
 
     std::cout << "Free DOMDocument time: " << measure<>::execution([&domDoc]() {
         domDoc->release();
-    }) << std::endl;
+    }) << "ms" << std::endl;
 
     std::cout << "END: " << __FUNCTION__ << std::endl;
 }
 
-void TestWithOnly1Document()
+void TestWithDocument()
 {
     std::cout << "START: " << __FUNCTION__ << std::endl;
 
@@ -162,11 +161,11 @@ void TestWithOnly1Document()
     {
         std::cout << "Parsed time: " << measure<>::execution([&domDoc]() {
             domDoc = ParseFile(fileToParse);
-        }) << std::endl;
+        }) << "ms" << std::endl;
 
         std::cout << "Free DOMDocument time: " << measure<>::execution([&domDoc]() {
             domDoc->release();
-        }) << std::endl;
+        }) << "ms" << std::endl;
     }
 
     std::cout << "END: " << __FUNCTION__ << std::endl;
