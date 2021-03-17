@@ -1,0 +1,10 @@
+# IDE folder
+.vscode/**
+.vs/**
+
+# Build folder
+out/
+Debug/
+Release/
+RelWithDebInfo/
+build/
