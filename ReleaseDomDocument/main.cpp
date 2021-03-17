@@ -122,6 +122,7 @@ void ImportOtherDocElementIntoDocFragment(DOMDocument* otherDoc, DOMDocumentFrag
         otherDocChildNode = otherDocChildNode->getNextSibling();
     }
 }
+
 void TestWithDocumentFragment()
 {
     std::cout << "START: " << __FUNCTION__ << std::endl;
