@@ -7,4 +7,5 @@ out/
 Debug/
 Release/
 RelWithDebInfo/
+MinSizeRel/
 build/
